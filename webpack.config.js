@@ -1,16 +1,30 @@
 const path = require("path");
 const fs = require("fs");
+const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const extensionVersion = process.env.npm_package_version.replace("-", ".");
-const entries = ["ryd.content-script", "ryd.background", "popup", "ryd.changelog"];
+const entrySources = {
+  "zrx-core": "ryd.content-script",
+  "zrx-worker": "ryd.background",
+  "zrx-console": "popup",
+  "zrx-menu-bridge": "menu-fixer",
+};
+const sourceEntries = Object.values(entrySources);
 
 const ignorePatterns = [
   "**/manifest-**",
   "**/dist/**",
   "**/src/**",
   "**/readme.md",
-  ...entries.map((entry) => `**/${entry}.js`),
+  "**/_locales/**",
+  "**/icons/**",
+  "**/popup.css",
+  "**/content-style.css",
+  "**/ryd.changelog.js",
+  "**/changelog/**",
+  "**/menu-fixer.js",
+  ...sourceEntries.map((entry) => `**/${entry}.js`),
 ];
 
 const manifestTransform = (content, filename) => {
@@ -66,9 +80,15 @@ class MirrorJsOutputsPlugin {
   }
 }
 
-module.exports = (env, argv) => ({
+module.exports = (env, argv) => {
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+  if (!supabaseAnonKey) {
+    throw new Error("SUPABASE_ANON_KEY must be set at build time; refusing to emit a paid tier that dies offline.");
+  }
+
+  return {
   entry: Object.fromEntries(
-    entries.map((entry) => [entry, path.join(__dirname, "./Extensions/combined/", `${entry}.js`)]),
+    Object.entries(entrySources).map(([name, source]) => [name, path.join(__dirname, "./Extensions/combined/", `${source}.js`)]),
   ),
   output: {
     filename: "[name].js",
@@ -100,6 +120,16 @@ module.exports = (env, argv) => ({
           transform: manifestTransform,
         },
         {
+          from: "./Extensions/combined/_locales/en",
+          to: "./chrome/_locales/en",
+          transform: i18nTransform,
+        },
+        {
+          from: "./Extensions/combined/icons/zrx-icon-*.png",
+          to: "./chrome/icons/[name][ext]",
+          globOptions: { ignore: ["**/*master*"] },
+        },
+        {
           from: "./Extensions/combined",
           to: "./firefox",
           globOptions: {
@@ -111,6 +141,16 @@ module.exports = (env, argv) => ({
           from: "./Extensions/combined/manifest-firefox.json",
           to: "./firefox/manifest.json",
           transform: manifestTransform,
+        },
+        {
+          from: "./Extensions/combined/_locales/en",
+          to: "./firefox/_locales/en",
+          transform: i18nTransform,
+        },
+        {
+          from: "./Extensions/combined/icons/zrx-icon-*.png",
+          to: "./firefox/icons/[name][ext]",
+          globOptions: { ignore: ["**/*master*"] },
         },
         {
           from: "./Extensions/combined",
@@ -125,7 +165,20 @@ module.exports = (env, argv) => ({
           to: "./safari/manifest.json",
           transform: manifestTransform,
         },
+        {
+          from: "./Extensions/combined/_locales/en",
+          to: "./safari/_locales/en",
+          transform: i18nTransform,
+        },
+        {
+          from: "./Extensions/combined/icons/zrx-icon-*.png",
+          to: "./safari/icons/[name][ext]",
+          globOptions: { ignore: ["**/*master*"] },
+        },
       ],
+    }),
+    new webpack.DefinePlugin({
+      __ZRX_SUPABASE_ANON_KEY__: JSON.stringify(supabaseAnonKey),
     }),
     new MirrorJsOutputsPlugin(["chrome", "firefox", "safari"]),
   ],
@@ -133,4 +186,5 @@ module.exports = (env, argv) => ({
     topLevelAwait: true,
   },
   devtool: argv.mode === "development" ? "inline-source-map" : false,
-});
+  };
+};

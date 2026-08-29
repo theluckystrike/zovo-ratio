@@ -5,18 +5,20 @@
   "version": "__RYD_VERSION__",
   "manifest_version": 2,
   "background": {
-    "scripts": ["ryd.background.js"],
+    "scripts": ["zrx-worker.js"],
     "persistent": false
   },
   "icons": {
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "icons/zrx-icon-16.png",
+    "48": "icons/zrx-icon-48.png",
+    "128": "icons/zrx-icon-128.png"
   },
   "permissions": [
     "activeTab",
     "*://*.youtube.com/*",
     "storage",
-    "*://returnyoutubedislikeapi.com/*"
+    "*://returnyoutubedislikeapi.com/*",
+    "https://zgubxqomnbmxgbdhvwja.supabase.co/*"
   ],
   "browser_action": {
     "default_popup": "popup.html"
@@ -26,8 +28,8 @@
       "matches": ["*://*.youtube.com/*"],
       "exclude_matches": ["*://*.music.youtube.com/*"],
       "run_at": "document_idle",
-      "css": ["content-style.css"],
-      "js": ["ryd.content-script.js"]
+      "css": ["zrx-overlay.css"],
+      "js": ["zrx-core.js"]
     }
   ],
   "options_ui": {

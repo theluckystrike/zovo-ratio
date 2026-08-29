@@ -13,16 +13,16 @@ const extensionChangelogUrl =
 const config = {
   apiUrl: isDevelopment ? DEV_API_URL : PROD_API_URL,
 
-  voteDisabledIconName: "icon_hold128.png",
-  defaultIconName: "icon128.png",
+  voteDisabledIconName: "zrx-icon-128.png",
+  defaultIconName: "zrx-icon-128.png",
 
   links: {
-    website: "https://returnyoutubedislike.com",
-    github: "https://github.com/Anarios/return-youtube-dislike",
-    discord: "https://discord.gg/mYnESY4Md5",
-    donate: "https://returnyoutubedislike.com/donate",
-    faq: "https://returnyoutubedislike.com/faq",
-    help: "https://returnyoutubedislike.com/help",
+    website: "https://zovo.one",
+    github: "https://github.com/theluckystrike/zovo-ratio",
+    pricing: "https://zovo.one/pricing",
+    attribution: "https://returnyoutubedislike.com",
+    faq: "https://zovo.one",
+    help: "https://zovo.one",
     changelog: extensionChangelogUrl,
   },
 

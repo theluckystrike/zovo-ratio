@@ -465,15 +465,9 @@ function maybeShowChangelog(details) {
   }
 }
 
-api.runtime.onInstalled.addListener((details) => {
-  maybeShowChangelog(details);
-});
-
-if (api?.runtime?.onStartup && typeof api.runtime.onStartup.addListener === "function") {
-  api.runtime.onStartup.addListener(() => {
-    showPendingChangelogIfNeeded();
-  });
-}
+// Zovo Ratio does not open a marketing or changelog tab on install/update.
+// Keep the upstream changelog helpers for source provenance, but never surprise
+// the user by stealing focus during installation.
 
 // api.storage.sync.get(['lastShowChangelogVersion'], (details) => {
 //   if (extConfig.showUpdatePopup === true &&

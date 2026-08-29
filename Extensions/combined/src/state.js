@@ -11,6 +11,7 @@ import {
   createObserver,
 } from "./utils";
 import { config, getApiEndpoint, DEV_API_URL, PROD_API_URL, isDevelopment } from "./config";
+import { captureZrxWatchSnapshot } from "./zrx/experience";
 const LIKED_STATE = "LIKED_STATE";
 const DISLIKED_STATE = "DISLIKED_STATE";
 const NEUTRAL_STATE = "NEUTRAL_STATE";
@@ -293,6 +294,11 @@ function processResponse(response, storedData) {
   storedData.dislikes = parseInt(response.dislikes);
   storedData.likes = getLikeCountFromButton() || parseInt(response.likes);
   createRateBar(storedData.likes, storedData.dislikes);
+  captureZrxWatchSnapshot({
+    videoId: getVideoId(window.location.href),
+    likes: storedData.likes,
+    dislikes: storedData.dislikes,
+  });
   if (extConfig.coloredThumbs === true) {
     if (isShorts()) {
       // for shorts, leave deactivated buttons in default color

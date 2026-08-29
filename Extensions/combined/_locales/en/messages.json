@@ -39,13 +39,13 @@
     "message": "Disable logging to console"
   },
   "extensionDesc": {
-    "message": "Returns ability to see dislikes"
+    "message": "YouTube like and dislike ratio, channel sentiment history, list badges, and rated-history CSV export."
   },
   "extensionName": {
-    "message": "Return YouTube Dislike"
+    "message": "Zovo Ratio"
   },
   "extensionNameBeta": {
-    "message": "Return YouTube Dislike Beta"
+    "message": "Zovo Ratio Beta"
   },
   "legendSettings": {
     "message": "Settings"
@@ -183,7 +183,7 @@
     "message": "Re-format like numbers."
   },
   "textDeveloper": {
-    "message": "by Dmitry Selivanov & Community"
+    "message": "Built from Return YouTube Dislike by Dmitry Selivanov and contributors"
   },
   "textLikesDisabled": {
     "message": "Disabled by Owner"

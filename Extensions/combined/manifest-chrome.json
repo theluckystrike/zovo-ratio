@@ -5,24 +5,28 @@
   "version": "__RYD_VERSION__",
   "manifest_version": 3,
   "background": {
-    "service_worker": "ryd.background.js"
+    "service_worker": "zrx-worker.js"
   },
   "icons": {
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "icons/zrx-icon-16.png",
+    "48": "icons/zrx-icon-48.png",
+    "128": "icons/zrx-icon-128.png"
   },
   "host_permissions": [
     "*://*.youtube.com/*",
-    "*://returnyoutubedislikeapi.com/*"
+    "*://returnyoutubedislikeapi.com/*",
+    "https://zgubxqomnbmxgbdhvwja.supabase.co/*"
   ],
   "permissions": [
     "storage"
   ],
-  "optional_permissions": [
-    "identity"
-  ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/zrx-icon-16.png",
+      "48": "icons/zrx-icon-48.png",
+      "128": "icons/zrx-icon-128.png"
+    }
   },
   "content_scripts": [
     {
@@ -35,10 +39,10 @@
         "*://*.music.youtube.com/*"
       ],
       "js": [
-        "ryd.content-script.js"
+        "zrx-core.js"
       ],
       "css": [
-        "content-style.css"
+        "zrx-overlay.css"
       ]
     }
   ],
@@ -50,8 +54,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "ryd.script.js",
-        "menu-fixer.js"
+        "zrx-menu-bridge.js"
       ],
       "matches": [
         "*://*.youtube.com/*"

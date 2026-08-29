@@ -11,6 +11,7 @@ import {
   getLikeCountFromButton,
 } from "./state";
 import { createRateBar } from "./bar";
+import { captureZrxRatedAction } from "./zrx/experience";
 
 function sendVote(vote) {
   if (extConfig.disableVoteSubmission !== true) {
@@ -52,6 +53,7 @@ function likeClicked() {
         setLikes(numberFormat(nativeLikes));
       }
     }
+    captureZrxRatedAction(storedData.previousState === LIKED_STATE ? "like" : "neutral", storedData);
   }
 }
 
@@ -80,6 +82,7 @@ function dislikeClicked() {
         }
       }
     }
+    captureZrxRatedAction(storedData.previousState === DISLIKED_STATE ? "dislike" : "neutral", storedData);
   }
 }
 

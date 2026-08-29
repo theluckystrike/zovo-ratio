@@ -6,19 +6,20 @@
   "manifest_version": 2,
   "background": {
     "scripts": [
-      "ryd.background.js"
+      "zrx-worker.js"
     ]
   },
   "icons": {
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "icons/zrx-icon-16.png",
+    "48": "icons/zrx-icon-48.png",
+    "128": "icons/zrx-icon-128.png"
   },
   "permissions": [
     "activeTab",
     "*://*.youtube.com/*",
     "storage",
     "*://returnyoutubedislikeapi.com/*",
-    "identity"
+    "https://zgubxqomnbmxgbdhvwja.supabase.co/*"
   ],
   
   "browser_action": {
@@ -34,10 +35,10 @@
       ],
       "run_at": "document_idle",
       "css": [
-        "content-style.css"
+        "zrx-overlay.css"
       ],
       "js": [
-        "ryd.content-script.js"
+        "zrx-core.js"
       ]
     }
   ],
@@ -46,7 +47,7 @@
     "open_in_tab": false
   },
   "web_accessible_resources": [
-    "menu-fixer.js"
+    "zrx-menu-bridge.js"
   ]
 
     // uncomment this section for local storage to work in firefox locally,

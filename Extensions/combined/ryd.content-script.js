@@ -2,10 +2,11 @@ import { getButtons } from "./src/buttons";
 import { isShorts, setInitialState, initExtConfig } from "./src/state";
 import { getBrowser, isVideoLoaded } from "./src/utils";
 import { addLikeDislikeEventListener, createSmartimationObserver, storageChangeHandler } from "./src/events";
-import { initPatreonFeatures } from "./src/patreon";
+import { refreshZrxExperience, startZrxListBadges, watchZrxLicenseChanges } from "./src/zrx/experience";
 
 await initExtConfig();
-initPatreonFeatures();
+watchZrxLicenseChanges();
+startZrxListBadges();
 
 let jsInitChecktimer = null;
 let isSetInitialStateDone = false;
@@ -64,6 +65,7 @@ async function checkForInitialization() {
       createSmartimationObserver();
       addLikeDislikeEventListener();
       await setInitialState();
+      await refreshZrxExperience();
       isSetInitialStateDone = true;
       if (!isStorageListenerRegistered) {
         getBrowser().storage.onChanged.addListener(storageChangeHandler);
@@ -109,10 +111,11 @@ await setEventListeners();
 
 document.addEventListener("yt-navigate-finish", async function (event) {
   await setEventListeners();
+  startZrxListBadges();
 });
 
 const s = document.createElement("script");
-s.src = chrome.runtime.getURL("menu-fixer.js");
+s.src = chrome.runtime.getURL("zrx-menu-bridge.js");
 s.onload = function () {
   this.remove();
 };

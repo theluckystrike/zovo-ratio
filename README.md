@@ -1,3 +1,19 @@
+# Zovo Ratio
+
+Zovo Ratio is a GPL-3.0 fork of [Anarios/return-youtube-dislike](https://github.com/Anarios/return-youtube-dislike).
+It preserves the proven dislike-count and vote-submission core and adds an inline ratio treatment,
+per-channel sentiment history, Watch Later and Subscriptions badges, and local rated-history CSV export.
+
+This is a modified work. The complete changes are documented in [CHANGES-ZOVO-RATIO.md](CHANGES-ZOVO-RATIO.md),
+the unmodified baseline proof is in [BASELINE.md](BASELINE.md), and reproducible build instructions are in
+[BUILDING-ZOVO-RATIO.md](BUILDING-ZOVO-RATIO.md). The complete modified source is published at
+[github.com/theluckystrike/zovo-ratio](https://github.com/theluckystrike/zovo-ratio).
+
+The Pro wall is a distribution convenience, not a technical restriction under the GPL. Anyone may study,
+modify, and rebuild the source under GPL-3.0, including with different feature defaults.
+
+## Upstream README (preserved)
+
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/gebbhagfogifgggkldgodflihgfeippi?label=Chrome%20Rating&style=flat&logo=google)](https://chromewebstore.google.com/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi)
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/gebbhagfogifgggkldgodflihgfeippi?label=Chrome%20Users&style=flat&logo=google)](https://chromewebstore.google.com/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi)
 [![Mozilla rating](https://img.shields.io/amo/stars/return-youtube-dislikes?label=Firefox%20Rating&style=flat&logo=firefox)](https://addons.mozilla.org/en-US/firefox/addon/return-youtube-dislikes/)

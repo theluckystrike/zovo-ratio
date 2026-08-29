@@ -3,7 +3,7 @@ import { extConfig, isMobile, isLikesDisabled, isNewDesign, isRoundedDesign, isS
 import { getColorFromTheme, isInViewport, querySelector } from "./utils";
 
 function createRateBar(likes, dislikes) {
-  let rateBar = document.getElementById("ryd-bar-container");
+  let rateBar = document.getElementById("zrx-ratio-track");
   if (!isLikesDisabled()) {
     // sometimes rate bar is hidden
     if (rateBar && !isInViewport(rateBar)) {
@@ -59,19 +59,19 @@ function createRateBar(likes, dislikes) {
         (actions || querySelector(extConfig.selectors.rateBar.mobileActionBar)).insertAdjacentHTML(
           "beforeend",
           `
-              <div class="ryd-tooltip ryd-tooltip-${isNewDesign() ? "new" : "old"}-design" style="width: ${widthPx}px">
-              <div class="ryd-tooltip-bar-container">
+              <div class="zrx-ratio-wrap zrx-ratio-wrap--${isNewDesign() ? "new" : "old"}" style="width: ${widthPx}px" aria-label="${likePercentage}% liked, ${dislikePercentage}% disliked">
+              <div class="zrx-ratio-hitbox">
                 <div
-                    id="ryd-bar-container"
+                    id="zrx-ratio-track"
                     style="width: 100%; height: 2px;${colorDislikeStyle}"
                     >
                     <div
-                      id="ryd-bar"
+                      id="zrx-ratio-fill"
                       style="width: ${widthPercent}%; height: 100%${colorLikeStyle}"
                       ></div>
                 </div>
               </div>
-              <tp-yt-paper-tooltip position="top" id="ryd-dislike-tooltip" class="style-scope ytd-sentiment-bar-renderer" role="tooltip" tabindex="-1">
+              <tp-yt-paper-tooltip position="top" id="zrx-ratio-tooltip" class="style-scope ytd-sentiment-bar-renderer" role="tooltip" tabindex="-1">
                 <!--css-build:shady-->${tooltipInnerHTML}
               </tp-yt-paper-tooltip>
               </div>
@@ -91,12 +91,13 @@ function createRateBar(likes, dislikes) {
           }
         }
       } else {
-        document.querySelector(`.ryd-tooltip`).style.width = widthPx + "px";
-        document.getElementById("ryd-bar").style.width = widthPercent + "%";
-        document.querySelector("#ryd-dislike-tooltip > #tooltip").innerHTML = tooltipInnerHTML;
+        document.querySelector(`.zrx-ratio-wrap`).style.width = widthPx + "px";
+        document.getElementById("zrx-ratio-fill").style.width = widthPercent + "%";
+        const tooltip = document.querySelector("#zrx-ratio-tooltip > #tooltip");
+        if (tooltip) tooltip.innerHTML = tooltipInnerHTML;
         if (extConfig.coloredBar) {
-          document.getElementById("ryd-bar-container").style.backgroundColor = getColorFromTheme(false);
-          document.getElementById("ryd-bar").style.backgroundColor = getColorFromTheme(true);
+          document.getElementById("zrx-ratio-track").style.backgroundColor = getColorFromTheme(false);
+          document.getElementById("zrx-ratio-fill").style.backgroundColor = getColorFromTheme(true);
         }
       }
     }
