@@ -6,15 +6,21 @@ on:
       - main
     paths:
       - Extensions/combined/**
+      - .github/workflows/build.yaml
   pull_request:
     branches:
       - main
     paths:
       - Extensions/combined/**
+      - .github/workflows/build.yaml
 
 jobs:
   build:
     runs-on: ubuntu-24.04
+    env:
+      # Public Supabase publishable key (client-side by design, shipped in every build).
+      # Same project and key that zovo-skiplist already commits in package.json.
+      SUPABASE_ANON_KEY: sb_publishable_RG4IVO9Qm23_xPzdQjdFPQ_QHBwbOLv
 
     defaults:
       run:
