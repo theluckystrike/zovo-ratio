@@ -14,9 +14,13 @@ on:
       - Extensions/combined/**
       - .github/workflows/build.yaml
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     env:
       # Public Supabase publishable key (client-side by design, shipped in every build).
       # Same project and key that zovo-skiplist already commits in package.json.
